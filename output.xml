@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.0.2 (Python 3.7.7 on win32)" generated="20230418 10:51:07.407" rpa="false" schemaversion="3">
+<suite id="s1" name="Samplerequest" source="c:\requestlibsample\samplerequest.robot">
+<test id="s1-t1" name="menggunakan params" line="130">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>params</arg>
+<arg>${reqres}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20230418 10:51:08.240" level="INFO">Creating Session using : alias=params, url=https://reqres.in, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20230418 10:51:08.237" endtime="20230418 10:51:08.253"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>&amp;{parameter}</var>
+<arg>delay=1</arg>
+<arg>page=5</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230418 10:51:08.264" level="INFO">&amp;{parameter} = { delay=1 | page=5 }</msg>
+<status status="PASS" starttime="20230418 10:51:08.259" endtime="20230418 10:51:08.265"/>
+</kw>
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${resp}</var>
+<arg>params</arg>
+<arg>/api/users/</arg>
+<arg>params=&amp;{parameter}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20230418 10:51:09.988" level="INFO">GET Request : url=https://reqres.in/api/users/?delay=1&amp;page=5 
+ path_url=/api/users/?delay=1&amp;page=5 
+ headers={'User-Agent': 'python-requests/2.28.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20230418 10:51:09.988" level="INFO">GET Response : url=https://reqres.in/api/users/?delay=1&amp;page=5 
+ status=200, reason=OK 
+ headers={'Date': 'Tue, 18 Apr 2023 03:51:10 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Etag': 'W/"c5-JcOmw9u3dvyFVM6HmHdGzMiWAPA"', 'Via': '1.1 vegur', 'CF-Cache-Status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=00QwmoVvwT5n1DMVcn5oYINSilP41smVqS3l%2F5iJ%2Ft2L4j4gJT8bTqDsHpZQ2AdkQMaOFj20uRc1SjvPMJLqkWFEA3v7NusCdM71G1NubQUuoCc4TlfZZuFT8qqU2%2F3PVBzZrNv0yg%3D%3D"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '7b99f2989dfa0964-HKG', 'Content-Encoding': 'gzip'} 
+ body={"page":5,"per_page":6,"total":12,"total_pages":2,"data":[],"support":{"url":"https://reqres.in/#support-heading","text":"To keep ReqRes free, contributions towards server costs are appreciated!"}} 
+ </msg>
+<msg timestamp="20230418 10:51:09.989" level="INFO">C:\python377\lib\site-packages\urllib3\connectionpool.py:1052: InsecureRequestWarning: Unverified HTTPS request is being made to host 'reqres.in'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20230418 10:51:09.995" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230418 10:51:08.275" endtime="20230418 10:51:09.996"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${resp.content}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20230418 10:51:10.000" endtime="20230418 10:51:10.008"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${resp.json()}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20230418 10:51:10.009" endtime="20230418 10:51:10.013"/>
+</kw>
+<kw name="Validate Json By Schema File" library="JSONLibrary">
+<arg>${resp.json()}</arg>
+<arg>c:\\requestlibsample//delay.json</arg>
+<doc>Validate json object by json schema file.
+Arguments:
+    - json_object: json as a dictionary object.
+    - json_path: path to file with json schema</doc>
+<status status="PASS" starttime="20230418 10:51:10.014" endtime="20230418 10:51:10.027"/>
+</kw>
+<kw name="Dump Json To File" library="JSONLibrary">
+<arg>c:\\requestlibsample//output.txt</arg>
+<arg>${resp.json()}</arg>
+<doc>Dump JSON to file</doc>
+<status status="PASS" starttime="20230418 10:51:10.029" endtime="20230418 10:51:10.032"/>
+</kw>
+<status status="PASS" starttime="20230418 10:51:08.232" endtime="20230418 10:51:10.037"/>
+</test>
+<status status="PASS" starttime="20230418 10:51:07.426" endtime="20230418 10:51:10.065"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Samplerequest">Samplerequest</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
